@@ -5,20 +5,19 @@ fetch("http://localhost:3000/api/products")
         }
     })
     .then(function (products){
-        // console.log(products);
-         for ( let product of products) {
+      for ( let product of products) {
             
             
-            // Récupérer l'élèment HTML grâce à son id
-            
-            // Insérer un produit en reprenant le template en commentaire de la page index.html avec string Interpolation
+          // Récupérer l'élèment HTML grâce à son id
+          
+          // Insérer un produit en reprenant le template en commentaire de la page index.html avec string Interpolation
         
-            let sectionItems = document.getElementById('items');
-            console.log(sectionItems);
+          let sectionItems = document.getElementById('items');
+          console.log(sectionItems);
         
-            let displayProduct = ` <a href="./product.html?id=${product._id}">
+          let displayProduct = ` <a href="./product.html?id=${product._id}">
             <article>
-              <img src="${product.imageUrl}" alt="${product.altTxt}">
+              <img src="${product.imageUrl}" al"${product.altTxt}">
               <h3 class="productName">${product.name}</h3>
               <p class="productDescription"> ${product.description}</p>
             </article>
