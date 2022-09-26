@@ -37,12 +37,65 @@ function displayKanap (product){
     console.log(kanapTitle);
     kanapTitle.innerText = product.name;
 
+   let kanapColors = document.getElementById('colors');
+   kanapColors.innerHTML = '<option value="">--SVP, choisissez une couleur --</option>';
     for ( colorsOptions of product.colors){
         console.log(colorsOptions);
-        let kanapColors = document.getElementById('colors'); 
-        kanapColors.innerHTML = ` <option value="colorsOptions"> ${colorsOptions} </option>`;
-    }   
+        kanapColors.innerHTML += `<option value="colorsOptions"> ${colorsOptions}</option> `;
+    };
+   
+    
+              
+  
+};
 
 
-}
 
+
+// let colorsOptions = [product.colors];
+// colorsOptions.forEach (element=> console.log(element));
+    
+    
+
+    // for (i of product.colors){
+    //     console.log(i);
+    //     colorsOptions= i;
+
+    // } 
+    // for ( i of colorsOptions){
+    //     console.log(i);
+    //     let kanapColors = document.getElementById('colors'); 
+    //     kanapColors.innerHTML = `<option value="colorsOptions"> ${i}</option> `;
+        
+   
+
+    // }
+
+  
+   
+        // color.product=[]
+        // function optionForColor(color) {
+        //  return <options value=color>color<options>
+        // }
+        // color.forEach(elt => KanapColor.innerHTML = optionForColor(elt))
+         // function colorsOptions(color) {
+        //      return `<option value="colorsOptions"> ${color}</option>`
+        //     };
+        // };
+        // colorsOptions.forEach(colorsOptions => console.log(colorsOptions));
+
+        // function optionsForColors(product){ 
+        //     colorsOptions.forEach(kanapColors =>
+        //     console.log(kanapColors));            
+        // };       
+
+         // for (colorsOptions of kanapColors){
+        //     console.log(`<option value="colorsOptions"> ${colorsOptions}</option> `)
+        // }
+        // colorsOptions.array.forEach(kanapColors => {
+        //     console.log(kanapColors)
+        // });
+        
+        // for colorsOptions (let i =0 ; i<colorsOptions.lenght; i+=1){
+        //     console.log(colorsOptions[i])
+        // }
