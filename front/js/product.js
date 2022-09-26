@@ -3,9 +3,10 @@
 
 // Recupération id dans l'url
 let urlKanapSinope = document.location.href; 
-let urlproduct = new URL(urlKanapSinope);
-let idKanap = urlproduct.searchParams.get("id");
-console.log(idKanap);
+let urlProduct = new URL(urlKanapSinope);
+let idKanap = urlProduct.searchParams.get("id");
+// console.log(idKanap);
+// console.log(urlKanapSinope);
 
 
 //Récupération des infos produits
@@ -16,62 +17,32 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
     }
 })
 .then(function (product){
-    
     console.log(product);
-    // let kanapPic = document.getElementsByClassName("item__img");
-    // let displayKanapPic = `< img src="${product.imageUrl}" alt="${product.altTxt}" >`;
-    // kanapPic.innerHTML = displayKanapPic;
-
-    const kanapProduct = document.querySelector(".item__img");
-    let imageUrl ="http://localhost:3000/images/kanap01.jpeg";
-    kanapProduct.appendChild(imageUrl);
-    kanapProduct.appendChild(name);
-    kanapProduct.appendChild(description);
-    kanapProduct.appendChild(price);
+ 
+   displayKanap(product)
+   
 })
 .catch(function (error) {
     // "Une erreur est survenue";
     console.log(error)
 });
 
+function displayKanap (product){
 
-//Intégration information dans page produit
+    let kanapPic = document.getElementsByClassName("item__img");
+    let displayKanapPic = `<img src="${product.imageUrl}" alt="${product.altTxt}" />`;
+    kanapPic[0].innerHTML = displayKanapPic;
 
+    let kanapTitle = document.getElementById('title');
+    console.log(kanapTitle);
+    kanapTitle.innerText = product.name;
 
-
-
-// const kanapSinope = async () => {
-//     fetch ("http:localhost:3000/api/products")
-//     .then((res) => res.json())
-//     .then((promise) => {
-//         console.log(promise);
-//     });
-
-// };
-
-// console.log(kanapSinope);
-
-// const imageUrl = async () => {
-//         fetch ("http://localhost:3000/images/kanap01.jpeg")
-//         .then ((res) => res.json())
-//         .then((promise) => {
-//             console.log(promise);            
-//         });
-// };
+    for ( colorsOptions of product.colors){
+        console.log(colorsOptions);
+        let kanapColors = document.getElementById('colors'); 
+        kanapColors.innerHTML = ` <option value="colorsOptions"> ${colorsOptions} </option>`;
+    }   
 
 
-// const altTxt = async () => {
-//     fetch (`http://localhost:3000/api/products/${idKanap}.altTXT`)
-//     .then ((res) => res.json())
-//     .then((promise) => {
-//         console.log(promise);            
-//     });
-// };
+}
 
-// const sinopePic = document.getElementsByClassName('item__img');
-// console.log(sinopePic);
-
-// Affichage info
-
-// let itemsdescription = document.getElementById(description)
-// itemsdDescription.innerHTML = window.description;                                                                                                                                                                                                                    
