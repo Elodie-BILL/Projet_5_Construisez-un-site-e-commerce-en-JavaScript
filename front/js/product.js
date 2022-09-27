@@ -22,6 +22,9 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
     // excécution fonction eponyme:
    displayKanap(product)
 
+    // LocalStorage
+    saveKanapToCart(product);
+    
     
 })
 .catch(function (error) {
@@ -65,20 +68,11 @@ function displayKanap (product){
     console.log(kanapQuantityChoose);
 };
 
-//funtion gestion infos produits en LocalStorage
+//Mise infos produits en LocalStorage
 function saveKanapToCart (product){
-    localStorage.setItem('product', product);
-}
-console.log(saveKanapToCart)
-
-// function kanapToCart (){
-//     localStorage.getItem(product);
-// }
-
-// let kanapTable = [product._id, kanapColors, kanapQuantityChoose ];
-// console.log(kanapTable);
+    localStorage.setItem('displayKanap', displayKanap);
+};
     
-
 
    
     
