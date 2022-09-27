@@ -19,9 +19,10 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
 .then(function (product){
     console.log(product);
 
- // excécution fonction eponyme:
+    // excécution fonction eponyme:
    displayKanap(product)
-   
+
+    
 })
 .catch(function (error) {
     // "Une erreur est survenue";
@@ -58,12 +59,32 @@ function displayKanap (product){
     let kanapPrice = document.getElementById('price');
     console.log(kanapPrice);
     kanapPrice.innerText= product.price;
-  
+
+    // Quantité
+    let kanapQuantityChoose = document.getElementById('quantity');
+    console.log(kanapQuantityChoose);
+};
+
+//funtion gestion infos produits en LocalStorage
+function saveKanapToCart (product){
+    localStorage.setItem('product', product);
+}
+console.log(saveKanapToCart)
+
+// function kanapToCart (){
+//     localStorage.getItem(product);
+// }
+
+// let kanapTable = [product._id, kanapColors, kanapQuantityChoose ];
+// console.log(kanapTable);
+    
+
+
    
     
               
   
-};
+
 
 
 
