@@ -53,6 +53,12 @@ function displayKanap (product){
     let kanapDescription = document.getElementById('description');
     console.log('kanapDescription');
     kanapDescription.innerText = product.description;
+
+    // Prix
+    let kanapPrice = document.getElementById('price');
+    console.log(kanapPrice);
+    kanapPrice.innerText= product.price;
+  
    
     
               
