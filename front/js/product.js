@@ -24,6 +24,8 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
 
     // LocalStorage
     saveKanapToCart(product);
+    getKanapToCart(product)
+    addKanapToCart(product)
     
     
 })
@@ -70,8 +72,27 @@ function displayKanap (product){
 
 //Mise infos produits en LocalStorage
 function saveKanapToCart (product){
-    localStorage.setItem('displayKanap', displayKanap);
+    localStorage.setItem('displayKanap', JSON.stringify(displayKanap));
 };
+
+function getKanapToCart(product){
+    let kanapInCart = localStorage.getItem('displayKanap');
+    if (kanapInCart == null){
+        return [] 
+    } else { return JSON.parse(kanapInCart)};
+
+}
+
+function addKanapToCart(product){
+    let kanapToCart = getKanapToCart();
+    kanapToCart.push(product);
+    saveKanapToCart(product);
+}
+
+// tableau pour réception 
+let kanapTable = [localStorage.getItem("displayKanap ") ];
+console.log(kanapTable)
+
     
 
    
