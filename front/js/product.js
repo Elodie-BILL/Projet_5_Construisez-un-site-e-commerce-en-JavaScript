@@ -44,18 +44,34 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
                 name: product.name,
                 price: product.price,
                 description : product.description,
-                colors: colorsOptions,//affiche que la dernière couleur!!
+                colors: colorsOptions,//ERROR : affiche que la dernière couleur!!
                 imageUrl: product.imageUrl,
                 altTxt:product.altTxt,
-                quantity: 
+                // quantity: 
             };
             console.log(userDataChoose);
 
+            //Enregistrement données en LS: Je veux enregistré les données sélectionné par le client
+                ;
+                if ( localStorageData = []) {
+                    localStorageData.push(userDataChoose);
+                    localStorage.setItem("produit",JSON.stringify(userDataChoose));
+                    
+                    console.log(localStorageData);
+                    
+                } else {
+                    for (let i=1; ;i++){
+
+                    };
+                };
+
+
+
         });
 
-        // //Enregistrement données en LS
-        // let productData = JSON.stringify(product);
-        // localStorage.setItem("produit", productData);
+       
+       
+        
 
     
 
