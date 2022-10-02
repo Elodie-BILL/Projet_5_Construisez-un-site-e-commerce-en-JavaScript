@@ -23,14 +23,47 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
     displayKanap(product);
 
     // LocalStorage
-    let productData = JSON.stringify(product);
-    localStorage.setItem("produit", productData);
+        //Je veux envoyer les choix du client en LS au clic
+        
+        //Création Event au clic
+        let addToCartButton = document.getElementById('addToCart');
+        console.log(addToCartButton);
 
-   
+        addToCartButton.addEventListener('click', (event) => {
+            //récupération bouton html
+            let productOptions = document.getElementById('colors');
+            console.log(productOptions);
 
+            // choix client mise en variable
+            // let userChoose = productOptions;
+            // console.log(userChoose);
 
-      
+            //Mise infos produits en LocalStorage
+            let userDataChoose ={
+                _id: idKanap,
+                name: product.name,
+                price: product.price,
+                description : product.description,
+                colors: colorsOptions,//affiche que la dernière couleur!!
+                imageUrl: product.imageUrl,
+                altTxt:product.altTxt,
+                quantity: 
+            };
+            console.log(userDataChoose);
+
+        });
+
+        // //Enregistrement données en LS
+        // let productData = JSON.stringify(product);
+        // localStorage.setItem("produit", productData);
+
     
+
+
+
+
+       
+   
 })
 .catch(function (error) {
     console.log("une erreur est survenue");
@@ -68,24 +101,20 @@ function displayKanap (product){
     kanapPrice.innerText= product.price;
 
     // Quantité
-    // let kanapQuantityChoose = document.getElementById('quantity');
-    // console.log(kanapQuantityChoose);
+    let kanapQuantityChoose = document.getElementById('quantity');
+    console.log(kanapQuantityChoose);
 }
-
-// Event clic bouton 
-const addKanapToCart = () => {
-    
-    let button= document.getElementById("addToCart");
-    console.log(button);
-}
-
-//Mise infos produits en LocalStorage
-
-   
-    
-              
+        
   
+// 
 
+    // function KanapToCart(product){
+    //     let addToCart = JSON.parse(localStorage.getItem("produit"));
+    //     addToCart.push(productData);
+    //     kanapCart
+        
+       
+    // };
 
 
 
