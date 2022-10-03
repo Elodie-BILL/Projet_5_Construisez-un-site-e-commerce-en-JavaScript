@@ -2,15 +2,19 @@
 
 
 // Recupération id dans l'url
-let urlKanapSinope = document.location.href; 
-let urlProduct = new URL(urlKanapSinope);
-let idKanap = urlProduct.searchParams.get("id");
+function getKanapId() {
+    const urlKanapSinope = document.location.href; 
+    const urlProduct = new URL(urlKanapSinope);
+    const idKanap = urlProduct.searchParams.get("id");
+        return idKanap;
+    };
 // console.log(idKanap);
 // console.log(urlKanapSinope);
 
 
+
 //Récupération des infos produits
-fetch(`http://localhost:3000/api/products/${idKanap}`)
+fetch(`http://localhost:3000/api/products/${getKanapId()}`)
 .then(function (res) {
     if (res.ok) {
         return res.json();
@@ -25,42 +29,69 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
     // LocalStorage
         //Je veux envoyer les choix du client en LS au clic
         
-        //Création Event au clic
-        let addToCartButton = document.getElementById('addToCart');
+       
+        //récupération bouton html
+        const addToCartButton = document.getElementById('addToCart');
         console.log(addToCartButton);
-
+        
+        //Création Event au clic
         addToCartButton.addEventListener('click', (event) => {
-            //récupération bouton html
-            let productOptions = document.getElementById('colors');
+            
+            // couleur
+            const productOptions = document.getElementById('colors').value;
             console.log(productOptions);
 
-            // choix client mise en variable
-            // let userChoose = productOptions;
-            // console.log(userChoose);
+            //quantité
+            const productQuantity = document.getElementById('quantity').value;
+            console.log(productQuantity);
 
-            //Mise infos produits en LocalStorage
-            let userDataChoose ={
-                _id: idKanap,
-                name: product.name,
-                price: product.price,
-                description : product.description,
-                colors: colorsOptions,//ERROR : affiche que la dernière couleur!!
-                imageUrl: product.imageUrl,
-                altTxt:product.altTxt,
-                quantity: kanapQuantityChoose 
-            };
-            console.log(userDataChoose);
+            // Id
+            const id = getKanapId();
 
-            //Enregistrement données en LS: Je veux enregistré les données sélectionné par le client
+            let userDataStorage = localStorage.getItem('produit');
+            if (userDataStorage ){
+                let userDataChoose = JSON.parse(userDataStorage);
+                console.log(userDataStorage);
+                for (product of userDataChoose) {
+                    if ( product == product.id && product.productOptions){
+                        productQuantity.product++;
+
+                    } else {
+
+                    }
+                }
+
                 
-                if ( localStorageData = []) {
-                    localStorageData.push(userDataChoose);
-                    localStorage.setItem("produit",JSON.stringify(userDataChoose));
-                    console.log(localStorageData);
+            }else{
+                let userDataChoose =[{
+                _id: id,
+                colors: productOptions,
+               quantity: productQuantity
+            }];
+            console.log(userDataChoose);
+            }
+ 
+            //Mise infos produits en LocalStorage
+            
+
+            
+
+            // //Enregistrement données en LS: Je veux enregistré les données sélectionné par le client
+             
+            localStorage.setItem('produit',JSON.stringify(userDataChoose));
+
+
+
+
+            //     if ( localStorageData = []) {
+            //         localStorageData.push(userDataChoose);
+            //         localStorage.setItem("produit",JSON.stringify(userDataChoose));
+            //         console.log(localStorageData);
                     
-                } else {
-                    localStorageData.push(userDataChoose);
-                };               
+            //     } else( localStorageData[0] = idKanap || colorsOptions) { // variable du tableau ayant déjà un article =  même id ou même couleur => incrémentation
+                   
+            //         localStorageData.push(userDataChoose);
+            //         };               
 
 
 
@@ -68,6 +99,7 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
     
    
 })
+
 .catch(function (error) {
     console.log("une erreur est survenue");
 });
@@ -91,7 +123,7 @@ function displayKanap (product){
    kanapColors.innerHTML = '<option value="">--SVP, choisissez une couleur --</option>';
     for ( colorsOptions of product.colors){
         // console.log(colorsOptions);
-        kanapColors.innerHTML += `<option value="colorsOptions"> ${colorsOptions}</option> `;
+        kanapColors.innerHTML += `<option value="${colorsOptions}"> ${colorsOptions}</option> `;
     };
 
     // Description
@@ -111,18 +143,6 @@ function displayKanap (product){
 
 
 
-//
-        
-  
-
-
-    // function KanapToCart(product){
-    //     let addToCart = JSON.parse(localStorage.getItem("produit"));
-    //     addToCart.push(productData);
-    //     kanapCart
-        
-       
-    // };
 
 
 
