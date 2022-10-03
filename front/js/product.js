@@ -47,43 +47,31 @@ fetch(`http://localhost:3000/api/products/${idKanap}`)
                 colors: colorsOptions,//ERROR : affiche que la dernière couleur!!
                 imageUrl: product.imageUrl,
                 altTxt:product.altTxt,
-                // quantity: 
+                quantity: kanapQuantityChoose 
             };
             console.log(userDataChoose);
 
             //Enregistrement données en LS: Je veux enregistré les données sélectionné par le client
-                ;
+                
                 if ( localStorageData = []) {
                     localStorageData.push(userDataChoose);
                     localStorage.setItem("produit",JSON.stringify(userDataChoose));
-                    
                     console.log(localStorageData);
                     
                 } else {
-                    for (let i=1; ;i++){
-
-                    };
-                };
+                    localStorageData.push(userDataChoose);
+                };               
 
 
 
         });
-
-       
-       
-        
-
     
-
-
-
-
-       
    
 })
 .catch(function (error) {
     console.log("une erreur est survenue");
 });
+
 
 //fonction gestion affichage infos produit
 function displayKanap (product){
@@ -117,12 +105,16 @@ function displayKanap (product){
     kanapPrice.innerText= product.price;
 
     // Quantité
-    let kanapQuantityChoose = document.getElementById('quantity');
-    console.log(kanapQuantityChoose);
+    // let kanapQuantityChoose = document.getElementById('quantity');
+    // console.log(kanapQuantityChoose);
 }
+
+
+
+//
         
   
-// 
+
 
     // function KanapToCart(product){
     //     let addToCart = JSON.parse(localStorage.getItem("produit"));
