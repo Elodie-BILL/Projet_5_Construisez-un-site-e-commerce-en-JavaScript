@@ -1,13 +1,11 @@
 
-
-
 // Recupération id dans l'url
 function getKanapId() {
     const urlKanapSinope = document.location.href; 
     const urlProduct = new URL(urlKanapSinope);
     const idKanap = urlProduct.searchParams.get("id");
         return idKanap;
-    };
+};
 // console.log(idKanap);
 // console.log(urlKanapSinope);
 
@@ -39,26 +37,34 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
             
             // couleur
             const productOptions = document.getElementById('colors').value;
-            console.log(productOptions);
+            // console.log(productOptions);
 
             //quantité
             const productQuantity = document.getElementById('quantity').value;
-            console.log(productQuantity);
+            // console.log(productQuantity);
 
             // Id
             const id = getKanapId();
 
             let userDataStorage = localStorage.getItem('produit');
-            if (userDataStorage ){
+                let userDataChoose =[{
+                    _id: id,
+                    colors: productOptions,
+                    quantity: productQuantity
+                }];
+
+                if (userDataStorage ){
                 let userDataChoose = JSON.parse(userDataStorage);
                 console.log(userDataStorage);
+
                 for (product of userDataChoose) {
-                    if ( product == product.id && product.productOptions){
-                        productQuantity.product++;
-
-                    } else {
-
-                    }
+                
+                    if ((product._id === userDataChoose._id) && (product._id === userDataChoose.productOptions)){
+                      userDataStorage+= productQuantity
+                      userDataStorage.push(userDataChoose);
+                    }else {
+                      userDataStorage + userDataChoose;
+                    };
                 }
 
                 
@@ -69,19 +75,22 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
                quantity: productQuantity
             }];
             console.log(userDataChoose);
-            }
- 
-            //Mise infos produits en LocalStorage
-            
+            localStorage.setItem('produit',JSON.stringify(userDataChoose));
+        };
 
             
+
+
+
+
+
+
+
+        //Mise infos produits en LocalStorage          
 
             // //Enregistrement données en LS: Je veux enregistré les données sélectionné par le client
              
             localStorage.setItem('produit',JSON.stringify(userDataChoose));
-
-
-
 
             //     if ( localStorageData = []) {
             //         localStorageData.push(userDataChoose);
@@ -93,9 +102,7 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
             //         localStorageData.push(userDataChoose);
             //         };               
 
-
-
-        });
+    });
     
    
 })
