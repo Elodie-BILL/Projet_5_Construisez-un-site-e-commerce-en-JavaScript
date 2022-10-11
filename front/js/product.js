@@ -1,8 +1,8 @@
 
 // Recupération id dans l'url
 function getKanapId() {
-    const urlKanapSinope = document.location.href; 
-    const urlProduct = new URL(urlKanapSinope);
+    const urlKanap = document.location.href; 
+    const urlProduct = new URL(urlKanap);
     const idKanap = urlProduct.searchParams.get("id");
         return idKanap;
 };
@@ -47,60 +47,51 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
             const id = getKanapId();
 
             let userDataStorage = localStorage.getItem('produit');
-                let userDataChoose =[{
-                    _id: id,
-                    colors: productOptions,
-                    quantity: productQuantity
-                }];
+               
 
-                if (userDataStorage ){
-                let userDataChoose = JSON.parse(userDataStorage);
-                console.log(userDataStorage);
+                if (userDataStorage){
+                    let userDataChoose = JSON.parse(userDataStorage);
+                    console.log(userDataStorage);
+                    let modifyStorage = false;
 
-                for (product of userDataChoose) {
-                
-                    if ((product._id === userDataChoose._id) && (product._id === userDataChoose.productOptions)){
-                      userDataStorage+= productQuantity
-                      userDataStorage.push(userDataChoose);
-                    }else {
-                      userDataStorage + userDataChoose;
-                    };
-                }
-
-                
-            }else{
-                let userDataChoose =[{
-                _id: id,
-                colors: productOptions,
-               quantity: productQuantity
-            }];
-            console.log(userDataChoose);
-            localStorage.setItem('produit',JSON.stringify(userDataChoose));
-        };
-
-            
-
-
-
-
-
-
-
-        //Mise infos produits en LocalStorage          
-
-            // //Enregistrement données en LS: Je veux enregistré les données sélectionné par le client
-             
-            localStorage.setItem('produit',JSON.stringify(userDataChoose));
-
-            //     if ( localStorageData = []) {
-            //         localStorageData.push(userDataChoose);
-            //         localStorage.setItem("produit",JSON.stringify(userDataChoose));
-            //         console.log(localStorageData);
+                    for (product of userDataChoose) {
                     
-            //     } else( localStorageData[0] = idKanap || colorsOptions) { // variable du tableau ayant déjà un article =  même id ou même couleur => incrémentation
-                   
-            //         localStorageData.push(userDataChoose);
-            //         };               
+                        if(product._id === id && product.colors === productOptions){
+                    
+                         
+                            console.log('dans if');
+                            modifyStorage= true;
+                            // localStorage.setItem('produit',JSON.stringify(userDataChoose));
+
+                        }
+                       
+                    }
+                           if( modifyStorage === false){ 
+                            userDataChoose.push({
+                                _id: id,
+                                colors: productOptions,
+                                quantity: productQuantity
+                            });
+                            console.log('hors for ', userDataChoose);}
+                            
+                    localStorage.setItem('produit', JSON.stringify(userDataChoose));
+
+                        
+
+                    
+
+                
+                }else{
+                    let userDataChoose =[{
+                        _id: id,
+                        colors: productOptions,
+                        quantity: productQuantity
+                    }];
+
+                    //  console.log(userDataChoose);
+                 localStorage.setItem('produit',JSON.stringify(userDataChoose));
+                };
+             
 
     });
     

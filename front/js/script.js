@@ -17,14 +17,14 @@ fetch("http://localhost:3000/api/products")
         
           let displayProduct = ` <a href="./product.html?id=${product._id}">
             <article>
-              <img src="${product.imageUrl}" al"${product.altTxt}">
+              <img src="${product.imageUrl}" alt="${product.altTxt}">
               <h3 class="productName">${product.name}</h3>
               <p class="productDescription"> ${product.description}</p>
             </article>
           </a> `
 
           sectionItems.innerHTML+= displayProduct
-        }  
+        }
            
             
     })
