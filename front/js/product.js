@@ -51,8 +51,9 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
 
                 if (userDataStorage){
                     let userDataChoose = JSON.parse(userDataStorage);
-                    console.log(userDataStorage);
+                    console.log(userDataChoose);
                     let modifyStorage = false;
+
 
                     for (product of userDataChoose) {
                     
@@ -61,22 +62,27 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
                          
                             console.log('dans if');
                             modifyStorage= true;
-                            // localStorage.setItem('produit',JSON.stringify(userDataChoose));
-
+                            quantity.product += productQuantity;
+                            console.log(quantity.product)
+                                
                         }
-                       
+                        
                     }
-                           if( modifyStorage === false){ 
-                            userDataChoose.push({
-                                _id: id,
-                                colors: productOptions,
-                                quantity: productQuantity
-                            });
-                            console.log('hors for ', userDataChoose);}
+                    if( modifyStorage === false){ 
+                        userDataChoose.push({
+                            _id: id,
+                            colors: productOptions,
+                            quantity: productQuantity
+                        });
+                        console.log('hors for ', userDataChoose);
+                        
+                    }
+
+                    if(quantity.product=0){                 
+                    alert('Veuillez renseigner le nombre d\'article.')};
+                    
                             
                     localStorage.setItem('produit', JSON.stringify(userDataChoose));
-
-                        
 
                     
 
@@ -88,7 +94,7 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
                         quantity: productQuantity
                     }];
 
-                    //  console.log(userDataChoose);
+                     console.log(userDataChoose);
                  localStorage.setItem('produit',JSON.stringify(userDataChoose));
                 };
              
