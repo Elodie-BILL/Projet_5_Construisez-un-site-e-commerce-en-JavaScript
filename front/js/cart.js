@@ -11,7 +11,7 @@ let displayCart = ` <article class="cart__item" data-id="${cart._id}" data-color
   <div class="cart__item__content">
     <div class="cart__item__content__description">
       <h2>${ cart.name }</h2>
-      <p>"${cart.colors}"</p>
+      <p>${cart.colors}</p>
       <p>${cart.price}</p>
     </div>
     <div class="cart__item__content__settings">
@@ -26,21 +26,22 @@ let displayCart = ` <article class="cart__item" data-id="${cart._id}" data-color
   </div>
 </article> `;
 
-
-fetch(`http://localhost:3000/api/products}`)
-.then(function (res) {
-  if (res.ok) {
-    return res.json();
-  }
-})
-// .then(function (cart){
-  
-// })
-.catch(function (error) {
-  console.log("une erreur est survenue");
-});
-
 for (cart of cart){
+  fetch(`http://localhost:3000/api/products}`)
+  .then(function (res) {
+    if (res.ok) {
+      return res.json();
+    }
+  })
+  // .then(function (cart){
+    
+  // })
+  .catch(function (error) {
+    console.log("une erreur est survenue");
+  });
+
+
+
   // Je veux afficher chaque produit présent dans le LS
   
   displayCart
