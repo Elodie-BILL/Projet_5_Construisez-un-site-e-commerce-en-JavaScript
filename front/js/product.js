@@ -59,11 +59,13 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
                     
                         if(product._id === id && product.colors === productOptions){
                     
-                         
+                            product.quantity = parseInt(product.quantity,10) + parseInt(productQuantity,10);
+                            console.log(product.quantity)
+
                             console.log('dans if');
                             modifyStorage= true;
-                            quantity.product += productQuantity;
-                            console.log(quantity.product)
+
+                           
                                 
                         }
                         
@@ -73,13 +75,13 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
                             _id: id,
                             colors: productOptions,
                             quantity: productQuantity
-                        });
+                        }); 
                         console.log('hors for ', userDataChoose);
                         
                     }
 
-                    if(quantity.product=0){                 
-                    alert('Veuillez renseigner le nombre d\'article.')};
+                    // if(quantity.product=0 && ){                 
+                    // alert('Veuillez renseigner le nombre d\'article.')};
                     
                             
                     localStorage.setItem('produit', JSON.stringify(userDataChoose));
@@ -99,7 +101,7 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
                 };
              
 
-    });
+        });
     
    
 })

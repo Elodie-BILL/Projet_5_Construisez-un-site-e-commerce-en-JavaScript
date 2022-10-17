@@ -4,16 +4,16 @@ const kanapCartJson = JSON.parse(kanapCart);
 console.log(kanapCartJson);
 
 
-function cartRunning(kanapCartJson){ 
+// function cartRunning(kanapCartJson){ 
   
-  for (let product of kanapCartJson){
-    console.log(product);
-  };
+//   for (let product of kanapCartJson){
+//     console.log(product);
+//   };
 
-  displayCart;
+//   displayCart;
 
 
-};
+// };
 
 function displayCart(kanapCartJson){
   const cartHtml= document.getElementById('cart__items');
