@@ -19,91 +19,8 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
     }
 })
 .then(function (product){
-    // console.log(product);
-
     // excécution fonction eponyme:
     displayKanap(product);
-
-    // LocalStorage
-        //Je veux envoyer les choix du client en LS au clic
-        
-       
-        //récupération bouton html
-        const addToCartButton = document.getElementById('addToCart');
-        console.log(addToCartButton);
-        
-        //Création Event au clic
-        addToCartButton.addEventListener('click', (event) => {
-            
-            // couleur
-            const productOptions = document.getElementById('colors').value;
-            // console.log(productOptions);
-
-            //quantité
-            const productQuantity = document.getElementById('quantity').value;
-            // console.log(productQuantity);
-
-            // Id
-            const id = getKanapId();
-
-            let userDataStorage = localStorage.getItem('produit');
-               
-
-                if (userDataStorage){
-                    let userDataChoose = JSON.parse(userDataStorage);
-                    console.log(userDataChoose);
-                    let modifyStorage = false;
-
-
-                    for (product of userDataChoose) {
-                    
-                        if(product._id === id && product.colors === productOptions){
-                    
-                            product.quantity = parseInt(product.quantity,10) + parseInt(productQuantity,10);
-                            console.log(product.quantity)
-
-                            console.log('dans if');
-                            modifyStorage= true;
-
-                           
-                                
-                        }
-                        
-                    }
-                    if( modifyStorage === false){ 
-                        userDataChoose.push({
-                            _id: id,
-                            colors: productOptions,
-                            quantity: productQuantity
-                        }); 
-                        console.log('hors for ', userDataChoose);
-                        
-                    }
-
-                    // if(quantity.product=0 && ){                 
-                    // alert('Veuillez renseigner le nombre d\'article.')};
-                    
-                            
-                    localStorage.setItem('produit', JSON.stringify(userDataChoose));
-
-                    
-
-                
-                }else{
-                    let userDataChoose =[{
-                        _id: id,
-                        colors: productOptions,
-                        quantity: productQuantity
-                    }];
-
-                     console.log(userDataChoose);
-                 localStorage.setItem('produit',JSON.stringify(userDataChoose));
-                };
-             
-
-        });
-    
-   
 })
 
 .catch(function (error) {
@@ -147,7 +64,91 @@ function displayKanap (product){
     // console.log(kanapQuantityChoose);
 }
 
+// LocalStorage
+    //Je veux envoyer les choix du client en LS au clic
 
+ //récupération bouton html
+        const addToCartButton = document.getElementById('addToCart');
+        console.log(addToCartButton);
+        
+        //Création Event au clic
+        addToCartButton.addEventListener('click', (event) => {
+            
+            // couleur
+            const productOptions = document.getElementById('colors').value;
+            // console.log(productOptions);
+
+            //quantité
+            const productQuantity = parseInt(document.getElementById('quantity').value);
+            // console.log(productQuantity);
+            
+          
+            if( (productQuantity <= 0 || productQuantity >100)|| productOptions == "" ){ 
+                //s'il n'y a pas de quantités ou couleur sélectionné => massage d'alerte
+               alert('Veuillez renseigner les informations manquantes.');
+                return;
+            } 
+            
+            // Id
+            const id = getKanapId();
+
+            let userDataStorage = localStorage.getItem('produit');
+               
+
+                if (userDataStorage){
+                    let userDataChoose = JSON.parse(userDataStorage);
+                    console.log(userDataChoose);
+                    let modifyStorage = false;
+                    
+                
+
+                    for (product of userDataChoose) {
+                    
+                        if(product._id === id && product.colors === productOptions){
+                    
+                            product.quantity = parseInt(product.quantity,10) + parseInt(productQuantity,10);
+                            console.log(product.quantity)
+
+                            console.log('dans if');
+                            modifyStorage= true;
+
+                           
+                                
+                        }
+                        
+                    }
+                   
+                    if( modifyStorage === false){ 
+                        userDataChoose.push({
+                            _id: id,
+                            colors: productOptions,
+                            quantity: productQuantity
+                        }); 
+                        console.log('hors for ', userDataChoose);
+                        
+                    }
+                   
+                   
+                            
+                    localStorage.setItem('produit', JSON.stringify(userDataChoose));
+
+                    
+
+                
+                } else {
+                    
+                    let userDataChoose =[{
+                        _id: id,
+                        colors: productOptions,
+                        quantity: productQuantity
+                    }];
+
+                     console.log(userDataChoose);
+                 localStorage.setItem('produit',JSON.stringify(userDataChoose));
+                };
+                  
+                alert('Produit ajouté au panier')
+        });
 
 
 
