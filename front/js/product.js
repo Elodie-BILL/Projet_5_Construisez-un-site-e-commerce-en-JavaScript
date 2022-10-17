@@ -67,7 +67,7 @@ function displayKanap (product){
 // LocalStorage
     //Je veux envoyer les choix du client en LS au clic
 
- //récupération bouton html
+        //récupération bouton html
         const addToCartButton = document.getElementById('addToCart');
         console.log(addToCartButton);
         
