@@ -1,8 +1,8 @@
 fetch("http://localhost:3000/api/products")
   .then(function (res) {
-        if (res.ok) {
-            return res.json();
-        }
+      if (res.ok) {
+        return res.json();
+      }
     })
     .then(function (products){
       for ( let product of products) {
