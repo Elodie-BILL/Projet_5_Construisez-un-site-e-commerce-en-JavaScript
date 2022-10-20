@@ -1,75 +1,98 @@
+// Gestion des articles du panier
 let cart = JSON.parse(localStorage.getItem('produit'));
 console.log(cart);
 
-let cartHtmlCode = document.getElementById('cart__items');
-// console.log(cartHtmlCode);
-  
+
 let displayCart = '';
 
 for ( product of cart){
-  //console.log(product)  
-  let productId = product._id;
-  let productColor = product.colors;
-  let productQuantity = product.quantity;
-    
-  displayCart = displayCart + ` <article class="cart__item" data-id=${productId} data-color="${productColor}">
-          <div class="cart__item__img">
-              <img src="" alt="Photographie d'un canapé">
+  console.log(product._id);
+  
+
+
+  
+  
+  
+  let color = product.colors;
+  let quantity = product.quantity;
+
+  fetch(`http://localhost:3000/api/products/${product._id}`)
+   .then(function(response){
+    if (response){
+      return response.json();
+  
+    }      
+    })
+
+    .then(function (product){
+
+      console.log(product._id);
+     
+      let price = product.price;
+      
+      let name = product.name;
+      let picture = product.imageUrl;
+      let description = product.altTxt;
+      console.log(price, name,color);
+
+      displayCart = displayCart + ` <article class="cart__item" data-id="${price}" data-color="${color}">
+        <div class="cart__item__img">
+          <img src="${picture}" alt="${description}">
+        </div>
+        <div class="cart__item__content">
+          <div class="cart__item__content__description">
+            <h2>${name} </h2>
+            <p>"${color} "</p>
+            <p>${price}</p>
+          </div>
+          <div class="cart__item__content__settings">
+          <div class="cart__item__content__settings__quantity">
+          <p>Qté : </p>
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${quantity}">
+        </div>
+            <div class="cart__item__content__settings__delete">
+              <p class="deleteItem">Supprimer</p>
             </div>
-            <div class="cart__item__content">
-              <div class="cart__item__content__description">
-                <h2> </h2>
-                <p>${productColor}</p>
-                <p> </p>
-              </div>
-              <div class="cart__item__content__settings">
-                <div class="cart__item__content__settings__quantity">
-                  <p>Qté : </p>
-                  <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productQuantity}">
-                </div>
-                <div class="cart__item__content__settings__delete">
-                  <p class="deleteItem">Supprimer</p>
-                </div>
-              </div>
-            </div>
-            </article>`;
-  cartHtmlCode.innerHTML= displayCart;
+          </div>
+        </div>
+        </article>`;
+        cartHtmlCode.innerHTML= displayCart;
+    })
+    .catch(function (error) {
+      console.log("une erreur est survenue");
+    });
+
+
+    let cartHtmlCode = document.getElementById('cart__items');
+      // console.log(cartHtmlCode);  
+    console.log(displayCart);
+      
 };
 
-fetch(`http://localhost:3000/api/products`)
-  .then(function(response){
-      if (response){
-        return response.json();
-          
-      }      
-  })
-  .then(function (products){
-    console.log(products);
+// Bouton supprimer
+const deleteButton = document.getElementsByClassName('deleteItem')
+// console.log(deleteButton);
 
-    products.forEach(element => console.log(element));
-    let o = element[0];
-    console.log(o);
-   
-    //  for ( let article of products){
-    //     console.log(article);
-    //     let code = document.getElementById('cart__items').getElementsByClassName('cart__item__content__description');
-    //     console.log(code);
-    //     let codeEdited = `<div class="cart__item__content__description">
-    //     <h2>${article.name} </h2>
-    //     <p>${productColor}</p>
-    //     <p> ${article.price}</p>
-    //     </div>`
-    //     code.innerHTML=codeEdited;
-    //   }
-    
+deleteButton.addEventListener('click', (event) => {
+ 
+ 
+ localStorage.removeItem();
+});
 
-                
-  
-  })
-  .catch(function (error) {
-    console.log("une erreur est survenue");
-  });
-//
+
+//TOTAUX
+
+
+ 
+
+
+
+
+ 
+ 
+
+
+
 
 
 
@@ -92,9 +115,7 @@ fetch(`http://localhost:3000/api/products`)
 
     // for (article of products){
     //   // console.log(products);
-    //   let price = article.price;
-    //   let name = article.name;
-    //   let picture = article.imageUrl;
+    //   
     //   console.log(picture);
 
     // }
