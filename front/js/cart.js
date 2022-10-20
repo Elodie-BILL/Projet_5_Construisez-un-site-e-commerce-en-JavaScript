@@ -1,6 +1,5 @@
 let cart = JSON.parse(localStorage.getItem('produit'));
 // console.log(cart);
-
 let displayCart = '';
 
 for ( product of cart){
@@ -51,9 +50,16 @@ for ( product of cart){
       console.log("une erreur est survenue");
     });
 
-
     let cartHtmlCode = document.getElementById('cart__items');
     // console.log(cartHtmlCode);  
     // console.log(displayCart);
       
 };
+
+const sumQuantityCart = document.getElementById('totalQuantity');
+let addQuantity = ;
+let totalQuantity =`<span id="totalQuantity">${addQuantity}</span>`
+sumQuantityCart.innerHTML=totalQuantity
+
+const sumPriceCart= document.getElementById('totalPrice');
+console.log(sumQuantityCart, sumPriceCart);
