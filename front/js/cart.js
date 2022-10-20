@@ -1,39 +1,28 @@
-// Gestion des articles du panier
 let cart = JSON.parse(localStorage.getItem('produit'));
-console.log(cart);
-
+// console.log(cart);
 
 let displayCart = '';
 
 for ( product of cart){
-  console.log(product._id);
-  
-
-
-  
-  
-  
+  // console.log(product._id);
   let color = product.colors;
   let quantity = product.quantity;
 
   fetch(`http://localhost:3000/api/products/${product._id}`)
    .then(function(response){
-    if (response){
-      return response.json();
-  
-    }      
+      if (response){
+        return response.json();
+      }      
     })
 
     .then(function (product){
-
-      console.log(product._id);
+      // console.log(product._id);
      
       let price = product.price;
-      
       let name = product.name;
       let picture = product.imageUrl;
       let description = product.altTxt;
-      console.log(price, name,color);
+      // console.log(price, name,color);
 
       displayCart = displayCart + ` <article class="cart__item" data-id="${price}" data-color="${color}">
         <div class="cart__item__img">
@@ -64,62 +53,7 @@ for ( product of cart){
 
 
     let cartHtmlCode = document.getElementById('cart__items');
-      // console.log(cartHtmlCode);  
-    console.log(displayCart);
+    // console.log(cartHtmlCode);  
+    // console.log(displayCart);
       
 };
-
-// Bouton supprimer
-const deleteButton = document.getElementsByClassName('deleteItem')
-// console.log(deleteButton);
-
-deleteButton.addEventListener('click', (event) => {
- 
- 
- localStorage.removeItem();
-});
-
-
-//TOTAUX
-
-
- 
-
-
-
-
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// console.log(displayCart);
-
-    // Je veux selectionner les informations des articles dans products et
-    //  les injecter dans le code HTML en fonction de _id déjà dans le panier
-
-    // let apiData = document.getElementsByClassName('cart__item__content__description');
-    // console.log(apiData);
-
-    // for (article of products){
-    //   // console.log(products);
-    //   
-    //   console.log(picture);
-
-    // }
-    
-
-    // let article = products;
-    // console.log(article);
