@@ -2,6 +2,7 @@ let cart = JSON.parse(localStorage.getItem('produit'));
 // console.log(cart);
 let displayCart = '';
 
+
 for ( product of cart){
   // console.log(product._id);
   let color = product.colors;
@@ -16,14 +17,15 @@ for ( product of cart){
 
     .then(function (product){
       // console.log(product._id);
-     
+      
       let price = product.price;
       let name = product.name;
       let picture = product.imageUrl;
       let description = product.altTxt;
       // console.log(price, name,color);
 
-      displayCart = displayCart + ` <article class="cart__item" data-id="${price}" data-color="${color}">
+      let cartHtmlCode = document.getElementById('cart__items');
+      displayCart = displayCart + ` <article class="cart__item" data-id="${product._id}" data-color="${color}">
         <div class="cart__item__img">
           <img src="${picture}" alt="${description}">
         </div>
@@ -44,22 +46,37 @@ for ( product of cart){
           </div>
         </div>
         </article>`;
+        
         cartHtmlCode.innerHTML= displayCart;
     })
     .catch(function (error) {
       console.log("une erreur est survenue");
     });
 
-    let cartHtmlCode = document.getElementById('cart__items');
-    // console.log(cartHtmlCode);  
-    // console.log(displayCart);
+    
+  // console.log(cartHtmlCode);  
+  // console.log(displayCart);
       
 };
 
-const sumQuantityCart = document.getElementById('totalQuantity');
-let addQuantity = ;
-let totalQuantity =`<span id="totalQuantity">${addQuantity}</span>`
-sumQuantityCart.innerHTML=totalQuantity
+//Gestion suppression article 
+// const deleteItem = document.getElementById('totalQuantity');
+// deleteItem.closest('')
+// console.log(deleteItem.closest('section'));
+// const actionToClear = deleteItem.closest('section');
 
-const sumPriceCart= document.getElementById('totalPrice');
-console.log(sumQuantityCart, sumPriceCart);
+// const deleteItem = document.getElementsByClassName('deleteItems');
+// console.log(deleteItem);
+// deleteItem.forEach(() => {
+//   article.addEventListener('click', (event => {
+  
+//     delete article;
+//     localStorage.removeItem(product._id)
+//   }));
+// });
+
+
+//Gestion modification quantité
+const modifyQuantity = document.getElementById('totalQuantity');
+console.log(modifyQuantity);
+
