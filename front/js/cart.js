@@ -1,7 +1,7 @@
 let cart = JSON.parse(localStorage.getItem('produit'));
 // console.log(cart);
-let displayCart = '';
-
+document.getElementById("totalQuantity").innerText = 0;
+document.getElementById('totalPrice').innerText= 0;
 
 for ( product of cart){
   // console.log(product._id);
@@ -24,15 +24,15 @@ for ( product of cart){
       let description = product.altTxt;
       // console.log(price, name,color);
 
-      let cartHtmlCode = document.getElementById('cart__items');
-      displayCart = displayCart + ` <article class="cart__item" data-id="${product._id}" data-color="${color}">
+      
+     let  displayCart = ` <article class="cart__item" data-id="${product._id}" data-color="${color}">
         <div class="cart__item__img">
           <img src="${picture}" alt="${description}">
         </div>
         <div class="cart__item__content">
           <div class="cart__item__content__description">
             <h2>${name} </h2>
-            <p>"${color} "</p>
+            <p>${color} </p>
             <p>${price}</p>
           </div>
           <div class="cart__item__content__settings">
@@ -46,11 +46,24 @@ for ( product of cart){
           </div>
         </div>
         </article>`;
+      
+        let cartHtmlCode = document.getElementById('cart__items');  
+        cartHtmlCode.innerHTML += displayCart;
         
-        cartHtmlCode.innerHTML= displayCart;
+        
+        // console.log(displayCart);
+      
+        const productSum = document.getElementById("totalQuantity");
+        productSum.innerText= parseInt(productSum.textContent) + quantity;
+
+        const sumProductPrice = document.getElementById("totalPrice");
+        sumProductPrice.innerText= parseInt(sumProductPrice.textContent) + price * quantity;
+
+        
     })
+
     .catch(function (error) {
-      console.log("une erreur est survenue");
+      console.log("une erreur est survenue", error);
     });
 
     
@@ -58,6 +71,13 @@ for ( product of cart){
   // console.log(displayCart);
       
 };
+
+const deleteItems = document.getElementsByClassName('deleteItem');
+for (deleteItem of deleteItems){
+  deleteItem.addEventListener('click', (event)=>{
+    
+  })
+}
 
 //Gestion suppression article 
 // const deleteItem = document.getElementById('totalQuantity');
@@ -77,6 +97,5 @@ for ( product of cart){
 
 
 //Gestion modification quantité
-const modifyQuantity = document.getElementById('totalQuantity');
-console.log(modifyQuantity);
-
+// const modifyQuantity = document.getElementById('totalQuantity');
+// console.log(modifyQuantity)
