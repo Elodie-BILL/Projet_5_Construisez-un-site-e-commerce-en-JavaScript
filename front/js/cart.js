@@ -73,9 +73,14 @@ for ( product of cart){
 };
 
 const deleteItems = document.getElementsByClassName('deleteItem');
+ console.log(deleteItems);
 for (deleteItem of deleteItems){
+ console.log("ok")
   deleteItem.addEventListener('click', (event)=>{
+    alert('êtes vous sur de vouloir supprimer')
+       
     
+
   })
 }
 
