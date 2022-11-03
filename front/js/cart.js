@@ -1,5 +1,6 @@
 let cart = JSON.parse(localStorage.getItem('produit'));
 // console.log(cart);
+
 document.getElementById("totalQuantity").innerText = 0;
 document.getElementById('totalPrice').innerText = 0;
 
@@ -72,25 +73,40 @@ cart.forEach((product, index) => {
     
   // console.log(cartHtmlCode);  
   // console.log(displayCart);
-      
+  
 });
+
+
 
 function eventDeleteItem() {
 
   //supprimer
+  
   let deleteItems = document.getElementsByClassName('deleteItem');
+  //console.log(cart[0]);
+  
+  // const productIndex = ;
+  
+ 
 
 
   for (let deleteItem of deleteItems) {
- 
-
+   
     deleteItem.addEventListener('click', (event) => {
+      console.log(cart);
+
+      console.log(cart.splice(0, 1));
     
-      alert('ok');
+
       window.location.reload();
 
-    })
+      localStorage.setItem('produit', JSON.stringify(cart))
 
+      alert('Article supprimé ');
+
+    
+
+    });
     
   };
 }
@@ -101,29 +117,13 @@ function eventUpdateItem() {
 
 
 
-//Gestion suppression article 
-// const deleteItem = document.getElementById('totalQuantity');
-// deleteItem.closest('')
-// console.log(deleteItem.closest('section'));
-// const actionToClear = deleteItem.closest('section');
-
-// const deleteItem = document.getElementsByClassName('deleteItems');
-// console.log(deleteItem);
-// deleteItem.forEach(() => {
-//   article.addEventListener('click', (event => {
-  
-//     delete article;
-//     localStorage.removeItem(product._id)
-//   }));
-// });
-
 // Formulaire
 
-const form = document.getElementsByClassName('cart__order__form')[0];
-console.log(form.firstName);
+// const form = document.getElementsByClassName('cart__order__form')[0];
+// console.log(form.firstName);
 // let a = form[1];
 // console.log(a);
 
-form.addEventListener('', function(event) {
-  output.innerHTML = event.target.value; 
-});
+// form.addEventListener('', function(event) {
+//   output.innerHTML = event.target.value; 
+// });

@@ -84,7 +84,7 @@ function displayKanap (product){
             
           
             if( (productQuantity <= 0 || productQuantity >100)|| productOptions == "" ){ 
-                //s'il n'y a pas de quantités ou couleur sélectionné => massage d'alerte
+                //s'il n'y a pas de quantités ou couleur sélectionné => message d'alerte
                alert('Veuillez renseigner les informations manquantes.');
                 return;
             } 
@@ -143,11 +143,12 @@ function displayKanap (product){
                         quantity: productQuantity
                     }];
 
-                     console.log(userDataChoose);
-                 localStorage.setItem('produit',JSON.stringify(userDataChoose));
+                    console.log(userDataChoose);
+                    
+                    localStorage.setItem('produit', JSON.stringify(userDataChoose));
                 };
                   
-                alert('Produit ajouté au panier')
+                alert('Article ajouté au panier')
         });
 
 
