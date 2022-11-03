@@ -83,27 +83,27 @@ function eventDeleteItem() {
   //supprimer
   
   let deleteItems = document.getElementsByClassName('deleteItem');
-  //console.log(cart[0]);
   
-  // const productIndex = ;
   
- 
-
 
   for (let deleteItem of deleteItems) {
    
     deleteItem.addEventListener('click', (event) => {
       console.log(cart);
 
-      console.log(cart.splice(0, 1));
-    
+     
+      const findIndex = cart.find( deleteItem => deleteItem.addEventListener); 
+  
+      console.log(findIndex)
 
-      window.location.reload();
+      findIndex.splice(0,1);
+      
 
       localStorage.setItem('produit', JSON.stringify(cart))
 
       alert('Article supprimé ');
-
+      
+      window.location.reload();
     
 
     });
@@ -112,6 +112,12 @@ function eventDeleteItem() {
 }
 
 function eventUpdateItem() {
+
+// Je veux qu'en cliquant sur le bouton, un +1 s'ajoute pour le même article
+// Je veux qu'au clique sur le bouton -1 s'applique à la quantité du produit
+
+let addProduct = document.getElementsByClassName('')
+
   
 }
 
