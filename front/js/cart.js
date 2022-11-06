@@ -60,7 +60,7 @@ cart.forEach((product, index) => {
         const sumProductPrice = document.getElementById("totalPrice");
         sumProductPrice.innerText= parseInt(sumProductPrice.textContent) + price * quantity;
 
-      eventDeleteItem();
+      // eventDeleteItem();
       eventUpdateItem();
     
               
@@ -86,17 +86,18 @@ function eventDeleteItem() {
   
   
 
-  for (let deleteItem of deleteItems) {
-   
-    deleteItem.addEventListener('click', (event) => {
-      console.log(cart);
+  let i=0
+   for (let deleteItem of deleteItems) {
 
-     
-      const findIndex = cart.find( deleteItem => deleteItem.addEventListener); 
+    deleteItem.id=i;
+    i++;
   
-      console.log(findIndex)
+    deleteItem.addEventListener('click', (event) => {
 
-      findIndex.splice(0,1);
+      console.log(cart);
+      cart.splice(parseInt(deleteItem.id),1);
+      console.log(deleteItem.id);
+      console.log(cart);
       
 
       localStorage.setItem('produit', JSON.stringify(cart))
@@ -107,16 +108,40 @@ function eventDeleteItem() {
     
 
     });
-    
+  
   };
 }
 
 function eventUpdateItem() {
+  
+  
 
-// Je veux qu'en cliquant sur le bouton, un +1 s'ajoute pour le même article
-// Je veux qu'au clique sur le bouton -1 s'applique à la quantité du produit
+  for (let productInput of cart){
+    // console.log(productInput);
+     
 
-let addProduct = document.getElementsByClassName('')
+    const addProduct = document.querySelector('input');
+    const modifyQuantity = document.getElementById("totalQuantity");
+
+    addProduct.addEventListener('change', (event=> {
+      
+
+      const valueOnChange = addProduct.value;
+      console.log(valueOnChange);
+
+      modifyQuantity.innerText = modifyQuantity.textContent + valueOnChange;
+      console.log(modifyQuantity);
+      
+      
+      
+    
+
+
+    }));
+  
+    
+  
+  }
 
   
 }
