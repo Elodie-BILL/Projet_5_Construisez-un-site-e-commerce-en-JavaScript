@@ -3,8 +3,10 @@ let cart = JSON.parse(localStorage.getItem('produit'));
 
 document.getElementById("totalQuantity").innerText = 0;
 document.getElementById('totalPrice').innerText = 0;
+let i =0;
 
 cart.forEach((product, index) => {
+
   // console.log(product._id);
   let color = product.colors;
   let quantity = product.quantity;
@@ -60,10 +62,11 @@ cart.forEach((product, index) => {
         const sumProductPrice = document.getElementById("totalPrice");
         sumProductPrice.innerText= parseInt(sumProductPrice.textContent) + price * quantity;
 
-      // eventDeleteItem();
+      eventDeleteItem();
       eventUpdateItem();
-    
-              
+     
+   
+           
     })
 
     .catch(function (error) {
@@ -79,28 +82,33 @@ cart.forEach((product, index) => {
 
 
 function eventDeleteItem() {
-
+ 
   //supprimer
   
   let deleteItems = document.getElementsByClassName('deleteItem');
   
   
 
-  let i=0
-   for (let deleteItem of deleteItems) {
+  let i=0;
+  for (let deleteItem of deleteItems) {
 
-    deleteItem.id=i;
+    deleteItem.id = i;
     i++;
   
     deleteItem.addEventListener('click', (event) => {
+      let deleteItem = event.target;
 
-      console.log(cart);
+      console.log('target', event.target)
+      console.log('target', event.target.id)
+
+      //console.log(cart);
+console.log(parseInt(deleteItem.id));
       cart.splice(parseInt(deleteItem.id),1);
-      console.log(deleteItem.id);
-      console.log(cart);
+      // console.log(deleteItem.id);
+      // console.log(cart);
       
 
-      localStorage.setItem('produit', JSON.stringify(cart))
+   localStorage.setItem('produit', JSON.stringify(cart))
 
       alert('Article supprimé ');
       
@@ -110,51 +118,83 @@ function eventDeleteItem() {
     });
   
   };
-}
+};
+
 
 function eventUpdateItem() {
   
-  
+  const itemQuantityList = document.getElementsByClassName('itemQuantity');
 
-  for (let productInput of cart){
-    // console.log(productInput);
-     
+  let index = 0;
+  for (let itemQuantity of itemQuantityList) {
 
-    const addProduct = document.querySelector('input');
-    const modifyQuantity = document.getElementById("totalQuantity");
+    itemQuantity.id = index;
+    index++;
 
-    addProduct.addEventListener('change', (event=> {
+    itemQuantity.addEventListener('change', (event => {
       
+      const itemQuantity = event.target;
+      console.log(itemQuantity);
+      const indexProduct = itemQuantity.id;
+      const quantity = itemQuantity.value;
 
-      const valueOnChange = addProduct.value;
-      console.log(valueOnChange);
+      let cart = JSON.parse(localStorage.getItem('produit'));
 
-      modifyQuantity.innerText = modifyQuantity.textContent + valueOnChange;
-      console.log(modifyQuantity);
-      
-      
-      
-    
+      cart[indexProduct].quantity = parseInt(quantity);
+      console.log(cart);
+
+      localStorage.setItem('produit', JSON.stringify(cart))
+
+      // window.location.reload();
+
+      if (quantity <= 0){
+
+        // let cart = JSON.parse(localStorage.getItem('produit'));
+
+        
+        alert('Quantité minimal: 1')
+        
+        itemQuantity.value = 1;
+        
+        cart[indexProduct].quantity = parseInt(quantity);
+        console.log(itemQuantity);
+
+        localStorage.setItem('produit', JSON.stringify(cart));
+        console.log(itemQuantity);
+
+        // window.location.reload(); 
+      } if(quantity > 100 ) {
+        // let cart = JSON.parse(localStorage.getItem('produit'));
+
+        
+        alert('Quantité maximal : 100')
+        
+        itemQuantity.value = 100;
+         
+        cart[indexProduct].quantity = parseInt(quantity);
+        console.log(itemQuantity);
+ 
+        localStorage.setItem('produit', JSON.stringify(cart));
+        console.log(itemQuantity);
+ 
+        // window.location.reload();
+
+      }
+
 
 
     }));
-  
-    
-  
   }
 
-  
-}
+};
+
 
 
 
 // Formulaire
 
-// const form = document.getElementsByClassName('cart__order__form')[0];
-// console.log(form.firstName);
-// let a = form[1];
-// console.log(a);
+const form = document.getElementsByClassName('firstName');
+//console.log(firstName);
 
-// form.addEventListener('', function(event) {
-//   output.innerHTML = event.target.value; 
-// });
+
+
