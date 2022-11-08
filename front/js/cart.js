@@ -179,6 +179,7 @@ function eventUpdateItem() {
  
         // window.location.reload();
 
+        // les quantités modofiés disparaissent après le reload
       }
 
 
@@ -193,8 +194,15 @@ function eventUpdateItem() {
 
 // Formulaire
 
-const form = document.getElementsByClassName('firstName');
-//console.log(firstName);
+const formFirstName = document.getElementsByClassName('firstName');
+console.log(firstName);
+
+let alpabet = / abcdefghijklmnopqrstuvwxyz /;
+let symbols = /àéèç'-/;
+
+let result = alpabet.exec(formFirstName);
+console.log(result);
+
 
 
 
