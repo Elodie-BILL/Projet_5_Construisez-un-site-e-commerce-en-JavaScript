@@ -68,6 +68,7 @@ cart.forEach((product, index) => {
    
            
     })
+   
 
     .catch(function (error) {
       console.log("une erreur est survenue", error);
@@ -193,16 +194,26 @@ function eventUpdateItem() {
 
 
 // Formulaire
+function Form() {
 
-const formFirstName = document.getElementsByClassName('firstName');
-console.log(firstName);
 
-let alpabet = / abcdefghijklmnopqrstuvwxyz /;
-let symbols = /àéèç'-/;
+    const formFirstName = document.querySelector('input');
+    console.log(firstName);
 
-let result = alpabet.exec(formFirstName);
-console.log(result);
+    // formFirstName.addEventListener('input', (e =>{
 
+      let alpabet = / abcdefghijklmnopqrstuvwxyz /i;
+      let symbols = /àéèç'-/i;
+      
+      let result = formFirstName.textContent.match(alphabet);
+      console.log('result');
+
+      
+      
+
+    // }))
+    
+}
 
 
 
