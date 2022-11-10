@@ -64,6 +64,8 @@ cart.forEach((product, index) => {
 
       eventDeleteItem();
       eventUpdateItem();
+
+      validUserData();
      
    
            
@@ -194,26 +196,46 @@ function eventUpdateItem() {
 
 
 // Formulaire
-function Form() {
-
-
-    const formFirstName = document.querySelector('input');
-    console.log(firstName);
-
-    // formFirstName.addEventListener('input', (e =>{
-
-      let alpabet = / abcdefghijklmnopqrstuvwxyz /i;
-      let symbols = /àéèç'-/i;
-      
-      let result = formFirstName.textContent.match(alphabet);
-      console.log('result');
-
-      
-      
-
-    // }))
+function validUserData() {
+  const form =  document.querySelector('.cart__order__form');
+  // console.log(form);
+  
+  const address = form.address;
+  
     
+ for (input of form){
+    //console.log(input);
+    input.addEventListener('change', (e =>{
+      validEmail(this);
+    }))
+  } 
+};
+
+function validEmail(event){
+  const email= form.email;
+  let emailText =/^[a-zA-z0-9.-_]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-z]{2,10}$/, 'g';
+  const error = document.getElementById('emailErrorMsg');
+  // console.log(error);
+  
+  let testEmail= emailText.test(input.value);
+  console.log(testEmail);
+
+  if (testEmail){
+    error.innerHTML = 'adresse valide';
+  }else{
+    error.innerHTML= 'Adresse non valide'
+  }
 }
 
+function validText (firstName, lastName, city){
+  const firstName = form.firstName;
+  const lastName = form.lastName;
+  const city = form.city;
 
+  let alpabet = / abcdefghijklmnopqrstuvwxyz /i;
+      let symbols = /àéèç'-/i;
+        
+      let result = formFirstName.textContent.match(alphabet);
+      console.log(alphabet.test(formFirstName.textContent));
 
+}
