@@ -207,6 +207,7 @@ function validUserData() {
     //console.log(input);
     input.addEventListener('change', (e =>{
       validText();
+      validAddress();
       validEmail();
      
     }))
@@ -214,61 +215,69 @@ function validUserData() {
 };
 
 function validEmail(){
-  const email= document.email;
-  let emailText =/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-z]{2,10}$/g;
+  const email= document.getElementsByClassName('email');
   const error = document.getElementById('emailErrorMsg');
+  const emailText =/[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-z]{2,10}/g;
+
   // console.log(error);
   
-  let testEmail= emailText.test(input.value);
+  let testEmail= emailText.test(email.value);
   console.log(testEmail);
 
   if (testEmail){
-    error.innerHTML = 'adresse valide';
+    error.innerHTML = 'Valide';
   }else{
-    error.innerHTML= 'Adresse non valide'
+    error.innerHTML= 'Invalide'
   }
 }
 
 function validText (){
-  let letterAndSymbols = /[a-zA-ZÀÉÈÇéèàç'-]+/i;
+  const letterAndSymbols = /[a-zA-ZÀÉÈÇéèàç'-]+/i;
 
-
-  const firstNameContent = document.firstName;
-  console.log(firstNameContent);
-  const errorFName = document.getElementsById('firstNameErrorMsg');
-  let testFirstName = validText.test(firstNameContent.value);
+  //Prénom
+  const firstNameContent = document.getElementsByClassName('firstName');
+  const errorFName = document.getElementById('firstNameErrorMsg');
+  let testFirstName = letterAndSymbols.test(firstNameContent.value);
   if (testFirstName){
     errorFName.innerHTML = 'Valide';
   }else{
     error.innerHTML= 'Invalide'
   };
-  
-  const lastNameContent = document.lastName;
-  const errorLName = document.getElementsById('lastNameErrorMsg');
-  let testLastName = validText.test(lastNameContent.value);
+
+  //Nom
+  const lastNameContent = document.getElementsByClassName('lastName');
+  const errorLName = document.getElementById('lastNameErrorMsg');
+  let testLastName = letterAndSymbols.test(lastNameContent.value);
   if (testLastName){
     errorLName.innerHTML = 'Valide';
   }else{
     errorLName.innerHTML = 'Invalide';
   }; 
 
-  const cityContent = document.city;
-  const errorCity = document.getElementsById('cityErrorMsg');
-  let testcityContent = validText.test(cityContent.value);
+  //Ville
+  const cityContent = document.getElementsByClassName('city');
+  const errorCity = document.getElementById('cityErrorMsg');
+  let testcityContent = letterAndSymbols.test(cityContent.value);
+  if (testcityContent){
+    errorCity.innerHTML = 'Valide';
+  }else{
+    errorCity.innerHTML = 'Invalide';
+  }; 
 
 }
 
 function validAddress (){
-  const address = form.address;
-  const errorAddress = document.getElementsById('addressErrorMsg');
 
-  let letters = /[a-zA-Z0-9a-zA-ZÀÉÈÇéèàç'-]+/g;
+  const address = document.getElementsByClassName('address');
+  const errorAddress = document.getElementById('addressErrorMsg');
+
+  const validTempers = /[a-zA-Z0-9a-zA-ZÀÉÈÇéèàç'-]+/g;
   
-  let testLetters = validAddress.test(address.value)
+  let testAddress = validTempers.test(address.value);
 
-  if (testLetters){
+  if (testAddress){
     errorAddress.innerHTML = 'Valide';
   }else{
-    errorAddress.innerHTML= 'Invalide'
+    errorAddress.innerHTML= 'Invalide';
   };
 };
