@@ -105,7 +105,7 @@ function eventDeleteItem() {
       console.log('target', event.target.id)
 
       //console.log(cart);
-console.log(parseInt(deleteItem.id));
+      console.log(parseInt(deleteItem.id));
       cart.splice(parseInt(deleteItem.id),1);
       // console.log(deleteItem.id);
       // console.log(cart);
@@ -200,20 +200,22 @@ function validUserData() {
   const form =  document.querySelector('.cart__order__form');
   // console.log(form);
   
-  const address = form.address;
+  
   
     
  for (input of form){
     //console.log(input);
     input.addEventListener('change', (e =>{
-      validEmail(this);
+      validText();
+      validEmail();
+     
     }))
   } 
 };
 
-function validEmail(event){
-  const email= form.email;
-  let emailText =/^[a-zA-z0-9.-_]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-z]{2,10}$/, 'g';
+function validEmail(){
+  const email= document.email;
+  let emailText =/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-z]{2,10}$/g;
   const error = document.getElementById('emailErrorMsg');
   // console.log(error);
   
@@ -227,15 +229,46 @@ function validEmail(event){
   }
 }
 
-function validText (firstName, lastName, city){
-  const firstName = form.firstName;
-  const lastName = form.lastName;
-  const city = form.city;
+function validText (){
+  let letterAndSymbols = /[a-zA-ZÀÉÈÇéèàç'-]+/i;
 
-  let alpabet = / abcdefghijklmnopqrstuvwxyz /i;
-      let symbols = /àéèç'-/i;
-        
-      let result = formFirstName.textContent.match(alphabet);
-      console.log(alphabet.test(formFirstName.textContent));
+
+  const firstNameContent = document.firstName;
+  console.log(firstNameContent);
+  const errorFName = document.getElementsById('firstNameErrorMsg');
+  let testFirstName = validText.test(firstNameContent.value);
+  if (testFirstName){
+    errorFName.innerHTML = 'Valide';
+  }else{
+    error.innerHTML= 'Invalide'
+  };
+  
+  const lastNameContent = document.lastName;
+  const errorLName = document.getElementsById('lastNameErrorMsg');
+  let testLastName = validText.test(lastNameContent.value);
+  if (testLastName){
+    errorLName.innerHTML = 'Valide';
+  }else{
+    errorLName.innerHTML = 'Invalide';
+  }; 
+
+  const cityContent = document.city;
+  const errorCity = document.getElementsById('cityErrorMsg');
+  let testcityContent = validText.test(cityContent.value);
 
 }
+
+function validAddress (){
+  const address = form.address;
+  const errorAddress = document.getElementsById('addressErrorMsg');
+
+  let letters = /[a-zA-Z0-9a-zA-ZÀÉÈÇéèàç'-]+/g;
+  
+  let testLetters = validAddress.test(address.value)
+
+  if (testLetters){
+    errorAddress.innerHTML = 'Valide';
+  }else{
+    errorAddress.innerHTML= 'Invalide'
+  };
+};
