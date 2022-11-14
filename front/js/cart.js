@@ -64,11 +64,6 @@ cart.forEach((product, index) => {
 
       eventDeleteItem();
       eventUpdateItem();
-
-      validUserData();
-
-      dataPost();
-     
    
            
     })
@@ -79,10 +74,15 @@ cart.forEach((product, index) => {
     });
 
     
+    
   // console.log(cartHtmlCode);  
   // console.log(displayCart);
   
 });
+
+validUserData();
+
+dataPost();
 
 function eventDeleteItem() {
  
@@ -138,37 +138,28 @@ function eventUpdateItem() {
       const itemQuantity = event.target;
       console.log(itemQuantity);
       const indexProduct = itemQuantity.id;
-      const quantity = itemQuantity.value;
+      let quantity = itemQuantity.value;
+ 
+
+      if( quantity <= 0  ){ 
+        
+        alert('La quantité doit est strictement comprise entre 1 et 100');
+        quantity=1
+        
+      }  
+
+      if (quantity > 100) {
+
+        alert('La quantité doit est strictement comprise entre 1 et 100');
+        quantity=100
+      }  
 
       let cart = JSON.parse(localStorage.getItem('produit'));
+
       cart[indexProduct].quantity = parseInt(quantity);
       console.log(cart);
       localStorage.setItem('produit', JSON.stringify(cart))
       window.location.reload();
-      if (quantity <= 0){
-        let cart = JSON.parse(localStorage.getItem('produit'));
-        alert('Quantité minimal: 1')
-        itemQuantity.value = 1;
-        cart[indexProduct].quantity = parseInt(quantity);
-        console.log(itemQuantity);
-        localStorage.setItem('produit', JSON.stringify(cart));
-        console.log(itemQuantity);
-        window.location.reload(); 
-      } else if(quantity > 100 ) {
-        let cart = JSON.parse(localStorage.getItem('produit'));     
-        alert('Quantité maximal : 100')
-        itemQuantity.value = 100;
-        cart[indexProduct].quantity = parseInt(quantity);
-        console.log(itemQuantity);
-        localStorage.setItem('produit', JSON.stringify(cart));
-        console.log(itemQuantity);
-        window.location.reload(); 
-        // Je veux que les quantités se modifient automatiquement dans le local storage.
-
-        // les quantités modifiés disparaissent après le reload 
-      }
-
-
 
     }));
   }
@@ -177,134 +168,143 @@ function eventUpdateItem() {
 
 // Formulaire
 function validUserData() {
-  const form =  document.querySelector('.cart__order__form');
+
+  const form = document.querySelector('.cart__order__form');
+  console.log(form);
+
   // console.log(form); 
- for (input of form){
+  for (input of form){
     //console.log(input);
-    input.addEventListener('change', (e =>{
+    input.addEventListener('change', (e) =>{
       validText();
       validAddress();
       validEmail();
-      
-     
-    }))
-  } 
-};
-
-
-function validText (inputText){
-  let letterAndSymbols = /[a-zA-ZÀÉÈÇéèàç'-]/;
-
-  //Prénom
-  const firstNameContent = document.getElementsByClassName('firstName');
-  const errorFName = document.getElementById('firstNameErrorMsg');
-  console.log("le prénom : " + letterAndSymbols.test(firstNameContent).value);
+    })
+  };
+} 
   
 
-  if (letterAndSymbols.test(inputText.value)){
+
+function validText() {
+  
+  let letterAndSymbols = /^[a-zA-ZÀ-ÄÈ-ÏÑ-ÖÙ-Ýà-äè-öù-ÿ'-\s]+$/;
+  console.log(letterAndSymbols);
+  
+  //Controle Prénom
+  const firstNameContent = document.getElementById('firstName');
+  // console.log(firstNameContent);
+  const errorFName = document.getElementById('firstNameErrorMsg');
+  console.log("le prénom : " + letterAndSymbols.test(firstNameContent.value));
+  
+  if (letterAndSymbols.test(firstNameContent.value)){
     errorFName.innerHTML = 'Valide';
-  }else if (letterAndSymbols.test(firstNameContent.value) === 0){
-    error.innerHTML= 'Veuillez renseigner le champ manquant';
   }else{
-    errorFName.innerHTML= 'Invalide'
+    errorFName.innerHTML= 'Invalide: Les chiffres ne sont pas acceptés';
   };
 
-  //Nom
-  const lastNameContent = document.getElementsByClassName('lastName');
+  // Controle nom de famille
+  const lastNameContent = document.getElementById('lastName');
+  // console.log(lastsNameContent);
   const errorLName = document.getElementById('lastNameErrorMsg');
 
-  console.log("le nom de famille: " + letterAndSymbols.test(lastNameContent).value);
+  console.log("le nom de famille: " + letterAndSymbols.test(lastNameContent.value));
 
   if (letterAndSymbols.test(lastNameContent.value)){
     errorLName.innerHTML = 'Valide';
-  }else if(letterAndSymbols===0) {
-    errorLName.innerHTML = 'Veuillez renseigner le champ manquant';
   }else{
-    errorLName.innerHTML = 'Invalide';
+    errorLName.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
   }; 
 
-  //Ville
-  const cityContent = document.getElementsByClassName('city');
+
+  //Controle nom de la ville
+  const cityContent = document.getElementById('city');
   const errorCity = document.getElementById('cityErrorMsg');
 
-  console.log("le nom de la ville : " + letterAndSymbols.test(cityContent).value);
+  console.log("le nom de la ville : " + letterAndSymbols.test(cityContent.value));
 
   if (letterAndSymbols.test(cityContent.value)){
     errorCity.innerHTML = 'Valide';
-  }else if (letterAndSymbols.test(cityContent.value)===0){
-    errorCity.innerHTML = 'Veuillez renseignez le champ manquant';
   }else{
-    errorCity.innerHTML = 'Invalide';
+    errorCity.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
   }; 
 
 }
 
 function validAddress (){
 
-  const address = document.getElementsByClassName('address');
+  const address = document.getElementById('address');
   const errorAddress = document.getElementById('addressErrorMsg');
 
-  const validTempers = /[a-zA-Z0-9a-zA-ZÀÉÈÇéèàç'-]/;
+  const validTempers = /^[a-zA-Z0-9',\s]+$/;
   
-  console.log("l 'adresse postale : " + validTempers.test(adress.value));
+  console.log("l 'adresse postale : " + validTempers.test(address.value));
 
 
   if (validTempers.test(address.value)){
     errorAddress.innerHTML = 'Valide';
-  }else if(validTempers.test(address.value)===0) {
-    
-     errorLName.innerHTML = 'Veuillez renseigner le champ manquant';
   }else{
-    errorAddress.innerHTML= 'Invalide';
+    errorAddress.innerHTML= 'Invalide: Ne pas utiliser de caractère spéciaux';
   };
 
 };
 
 
 function validEmail(){
-  const email= document.getElementsByClassName('email');
+  const email= document.getElementById('email');
   const error = document.getElementById('emailErrorMsg');
-  // const emailText =/^[a-zA-Z0-9]+[.]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-z]{2,10}$/;
-  const emailText=/^(([^<()[\]\\.,;:\s@\]+(\.[^<()[\]\\.,;:\s@\]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
- 
-
+  const emailText =/^[a-zA-Z0-9.-]+[@]{1}[a-zA-Z0-9.-]+[.]{1}[a-z]{2,10}$/;
   // console.log(error);
-
   console.log("l'adresse email :" + emailText.test(email.value));
 
  
   if (emailText.test(email.value)){
     error.innerHTML = 'Valide';
-  } else if (emailText.test(email.value) === ''){
-    //problème Les champs vident affiche 'valide'
-    error.innerHTML= 'Veuillez renseigner l\'email';
   }else{
-    error.innerHTML= 'Invalide';
+    error.innerHTML= 'Invalide: veuillez respecter l\'instruction suivante exemple@exemple.fr';
   };
 }; 
 
+
+
 function dataPost(){
+  
   let orderButton = document.getElementById('order');
   console.log(orderButton);
 
   orderButton.addEventListener('click',(e =>{
-    
-    fetch('http://localhost:3000/api/order' , {
+    console.log('le click fonctionne');
+
+    fetch('http://localhost:3000/api/product/order' ,{
       method: 'POST',
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json; charset=utf-8'
+        "Content-Type" : 'application/json;'
       },
-      body:JSON.stringify(cart)
-      
+      /*
+      * body: 
+      *
+      * {
+      * contact: {
+      *   firstName: string,
+      *   lastName: string,
+      *   address: string,
+      *   city: string,
+      *   email: string
+      * }
+      * products: [string] <-- array of product _id
+      * }
+      * */
     })
     .then(function (response){
       if (response.ok)
-      return res.json();
+      return 
+      //oject contact et tableau produit et orderId
     })
+    .then (console.log("ok"))
+
     .catch(function (error) {
       console.log("une erreur est survenue", error);
     });
+
   }));
 
 };
