@@ -179,11 +179,12 @@ function validUserData() {
       validText();
       validAddress();
       validEmail();
+      
     })
   };
+  
 } 
   
-
 
 function validText() {
   
@@ -195,7 +196,7 @@ function validText() {
   // console.log(firstNameContent);
   const errorFName = document.getElementById('firstNameErrorMsg');
   console.log("le prénom : " + letterAndSymbols.test(firstNameContent.value));
-  
+
   if (letterAndSymbols.test(firstNameContent.value)){
     errorFName.innerHTML = 'Valide';
   }else{
@@ -264,47 +265,69 @@ function validEmail(){
   };
 }; 
 
-
-
 function dataPost(){
+  let fName = document.getElementById('firstName').value;
+  let lName = document.getElementById('lastName').value;
+  let address = document.getElementById('address').value;
+  let cityName = document.getElementById('city').value;
+  let email = document.getElementById('email').value;
+
+  // un tableau de l'id des produit en format de string
   
-  let orderButton = document.getElementById('order');
+  let productsArray = [];
+  for ( let product of cart){
+
+    let productId = product._id;
+    console.log(productId);
+
+    productsArray.push(productId);
+  
+  }
+  console.log(productsArray);
+
+  const options = {
+
+    method: 'POST',
+    headers:{"Content-Type" : 'application/json;'},
+    body:JSON.stringify({
+      contact:{
+        firstName : fName,
+        lastName : lName,
+        address : address,
+        city : cityName,
+        email : email},
+      products: productsArray
+    })
+      
+  };
+  console.log(options);
+  
+  let orderButton = document.getElementById('order').closest('form');
   console.log(orderButton);
 
-  orderButton.addEventListener('click',(e =>{
-    console.log('le click fonctionne');
+  orderButton.addEventListener('submit',(e =>{
 
-    fetch('http://localhost:3000/api/product/order' ,{
-      method: 'POST',
-      headers: {
-        "Content-Type" : 'application/json;'
-      },
-      /*
-      * body: 
-      *
-      * {
-      * contact: {
-      *   firstName: string,
-      *   lastName: string,
-      *   address: string,
-      *   city: string,
-      *   email: string
-      * }
-      * products: [string] <-- array of product _id
-      * }
-      * */
-    })
-    .then(function (response){
-      if (response.ok)
-      return 
-      //oject contact et tableau produit et orderId
-    })
-    .then (console.log("ok"))
+    if(fName && lName && address && cityName && email == true){
+      console.log('le if fonctionne');
+    
+   
+  
+      fetch('http://localhost:3000/api/products/order' , options)      
+    
+      .then(function (response){
+        if (response.ok)
+        return response.json();
+        
+      })
+    
+      .catch(function (error) {
+        console.log("une erreur est survenue", error);
+      });
 
-    .catch(function (error) {
-      console.log("une erreur est survenue", error);
-    });
-
-  }));
+      localStorage.setItem('dataUser', body.contact);
+      console.log('finale');
+    };  
+  }))
 
 };
+
