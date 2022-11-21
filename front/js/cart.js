@@ -348,8 +348,9 @@ function dataPost() {
     })
     .then(function (response) {
       console.log(response);
+      console.log(response.orderId);
       //Redirection vers page confirmation avec id Confirmation dans l'url
-      return document.location = "confirmation.html";
+      return document.location = "confirmation.html"/*?${response.orderId}*/;
     })
 
     .catch(function (error) {
