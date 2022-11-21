@@ -14,5 +14,9 @@ let confirmNumber = document.getElementById("orderId");
 console.log(confirmNumber);
 confirmNumber.innerText = `${orderNumber()}`; 
 
+//Suppression panier
+const deleteCart = localStorage.clear('produit');
+console.log(JSON.parse(localStorage.getItem('produit')));
+
 
 

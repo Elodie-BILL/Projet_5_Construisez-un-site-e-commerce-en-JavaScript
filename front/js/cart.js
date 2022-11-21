@@ -127,7 +127,7 @@ function eventDeleteItem() {
     });
 
 
-    ""
+    
   };
 };
 
@@ -201,7 +201,7 @@ function validText() {
   let letterAndSymbols = /^[a-zA-ZÀ-ÄÈ-ÏÑ-ÖÙ-Ýà-äè-öù-ÿ'-\s]+$/;
   // console.log(letterAndSymbols);
   const ok = true;
-  const notOk = false;
+  
 
   //Controle Prénom
   const firstNameContent = document.getElementById('firstName');
@@ -214,7 +214,7 @@ function validText() {
     console.log("le if est : " + ok);
   } else {
     errorFName.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
-    console.log("le if est : " + notOk);
+    console.log("le if est : " + !ok);
   };
 
   // Controle nom de famille
@@ -229,7 +229,7 @@ function validText() {
     ok;
   } else {
     errorLName.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
-    notOk;
+    !ok;
   };
 
 
@@ -244,7 +244,7 @@ function validText() {
     return ok;
   } else {
     errorCity.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
-    notOk;
+    !ok;
   };
 
 }
@@ -355,9 +355,7 @@ function dataPost() {
       //Redirection vers page confirmation avec id Confirmation dans l'url
       return document.location = `confirmation.html?id=${orderId}`;
     })
-    .then(function(){
-      localStorage.clear('produit');
-    })
+    
     .catch(function (error) {
       console.log("une erreur est survenue", error);
     });
