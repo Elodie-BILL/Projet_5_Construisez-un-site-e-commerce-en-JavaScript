@@ -1,6 +1,8 @@
 let cart = JSON.parse(localStorage.getItem('produit'));
 // console.log(cart);
 
+
+
 document.getElementById("totalQuantity").innerText = 0;
 document.getElementById('totalPrice').innerText = 0;
 let i =0;
@@ -82,7 +84,11 @@ cart.forEach((product, index) => {
 
 validUserData();
 
-dataPost();
+let orderButton = document.getElementById('order');
+orderButton.addEventListener('click', (e) => {
+  e.preventDefault();
+ dataPost();
+});
 
 function eventDeleteItem() {
  
@@ -111,7 +117,7 @@ function eventDeleteItem() {
       // console.log(cart);
       
 
-   localStorage.setItem('produit', JSON.stringify(cart))
+      localStorage.setItem('produit', JSON.stringify(cart))
 
       alert('Article supprimé ');
       
@@ -120,7 +126,8 @@ function eventDeleteItem() {
 
     });
   
-  };
+    
+  ""};
 };
 
 function eventUpdateItem() {
@@ -260,12 +267,22 @@ function validEmail(){
  
   if (emailText.test(email.value)){
     error.innerHTML = 'Valide';
+    return true;
   }else{
-    error.innerHTML= 'Invalide: veuillez respecter l\'instruction suivante exemple@exemple.fr';
+    error.innerHTML = 'Invalide: veuillez respecter l\'instruction suivante exemple@exemple.fr';
+    return false
   };
 }; 
 
 function dataPost(){
+//Vérification de l'email
+  if (!(validEmail() && validAddress() && validText())) {
+    alert('ça passe pas')
+    return;
+  }
+
+  
+  
   let fName = document.getElementById('firstName').value;
   let lName = document.getElementById('lastName').value;
   let address = document.getElementById('address').value;
@@ -275,6 +292,7 @@ function dataPost(){
   // un tableau de l'id des produit en format de string
   
   let productsArray = [];
+  //Récupérér LocalStorage
   for ( let product of cart){
 
     let productId = product._id;
@@ -288,7 +306,7 @@ function dataPost(){
   const options = {
 
     method: 'POST',
-    headers:{"Content-Type" : 'application/json;'},
+    headers: { 'Accept': 'application/json', "Content-Type" : 'application/json'},
     body:JSON.stringify({
       contact:{
         firstName : fName,
@@ -300,17 +318,8 @@ function dataPost(){
     })
       
   };
-  console.log(options);
+  console.log('options dataPost()', options);
   
-  let orderButton = document.getElementById('order').closest('form');
-  console.log(orderButton);
-
-  orderButton.addEventListener('submit',(e =>{
-
-    if(fName && lName && address && cityName && email == true){
-      console.log('le if fonctionne');
-    
-   
   
       fetch('http://localhost:3000/api/products/order' , options)      
     
@@ -319,15 +328,18 @@ function dataPost(){
         return response.json();
         
       })
+        .then(function (response) {
+          console.log(response);
+          //Redirection vers page confirmation avec id Confirmation dans l'url
+        })
     
       .catch(function (error) {
         console.log("une erreur est survenue", error);
       });
 
-      localStorage.setItem('dataUser', body.contact);
       console.log('finale');
-    };  
-  }))
+      
+  
 
 };
 
