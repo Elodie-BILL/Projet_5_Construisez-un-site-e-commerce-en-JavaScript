@@ -1,12 +1,18 @@
 // Récupération numérro de commande
 function orderNumber(){
-    const urlCartPage = document.location.href;
-    const urlConfirmPage = new URL(urlCartPage);
-    const orderIdNum = urlConfirmPage.searchParams.get("orderId");
+    const urlCart = document.location.href;
+    console.log(urlCart);
+    const urlConfirme = new URL(urlCart);
+    const orderIdNum = urlConfirme.searchParams.get("id");
+    console.log(orderIdNum);
+        return orderIdNum;
 };
 
 
-
+// Afficher numéro de commande 
 let confirmNumber = document.getElementById("orderId");
 console.log(confirmNumber);
-confirmNumber.innerHTML = `${orderIdNum}` ; 
+confirmNumber.innerText = `${orderNumber()}`; 
+
+
+

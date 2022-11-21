@@ -348,11 +348,16 @@ function dataPost() {
     })
     .then(function (response) {
       console.log(response);
-      console.log(response.orderId);
-      //Redirection vers page confirmation avec id Confirmation dans l'url
-      return document.location = "confirmation.html"/*?${response.orderId}*/;
-    })
+      //Récupération numéro de commande
+      const orderId = response.orderId;
+      console.log(orderId)
 
+      //Redirection vers page confirmation avec id Confirmation dans l'url
+      return document.location = `confirmation.html?id=${orderId}`;
+    })
+    .then(function(){
+      localStorage.clear('produit');
+    })
     .catch(function (error) {
       console.log("une erreur est survenue", error);
     });
