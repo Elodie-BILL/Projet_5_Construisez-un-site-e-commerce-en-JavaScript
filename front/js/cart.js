@@ -214,7 +214,7 @@ function validText() {
     console.log("le if est : " + ok);
   } else {
     errorFName.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
-    console.log("le if est : " + !ok);
+    console.log("le if est : " );
   };
 
   // Controle nom de famille
@@ -229,7 +229,7 @@ function validText() {
     ok;
   } else {
     errorLName.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
-    !ok;
+    
   };
 
 
@@ -244,7 +244,7 @@ function validText() {
     return ok;
   } else {
     errorCity.innerHTML = 'Invalide: Les chiffres ne sont pas acceptés';
-    !ok;
+    
   };
 
 }

@@ -85,7 +85,7 @@ function displayKanap (product){
           
             if( (productQuantity <= 0 || productQuantity >100)|| productOptions == "" ){ 
                 //s'il n'y a pas de quantités ou couleur sélectionné => message d'alerte
-               alert('Veuillez renseigner les informations manquantes.');
+               alert('Veuillez vérifier les informations renseignées.');
                 return;
             } 
             
