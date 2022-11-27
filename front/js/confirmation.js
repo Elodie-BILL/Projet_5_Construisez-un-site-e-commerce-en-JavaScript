@@ -17,23 +17,15 @@ confirmNumber.innerText = `${orderNumber()}`;
 
 //Supprimer numéro de commande
 
-setTimeout(function deleteOrderNumber(){
-    
-    if (orderNumber()){
-        alert("le numéro de commande sera supprimé")
-        document.location = "confirmation.html";
+setTimeout(()=>{
 
-        let id = " supprimé "
-        let confirmNumberCart = document.getElementById("orderId");
-        confirmNumberCart.innerText = `${id}`;
-             
+    alert(" Merci pour votre commande")
+    // document.location.replace("confirmation.html");
+    document.location.replace("index.html");
     
-        
-    };
-   
-},5000 );
+}, 10000);
 
-// supprimer le reload et information du formulaire
+// information du formulaire
 
 //Suppression panier
 const deleteCart = localStorage.clear('produit');
