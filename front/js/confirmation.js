@@ -15,21 +15,11 @@ console.log(confirmNumber);
 confirmNumber.innerText = `${orderNumber()}`; 
 
 
-//Supprimer numéro de commande
 
-setTimeout(()=>{
-
-    alert(" Merci pour votre commande")
-    // document.location.replace("confirmation.html");
-    document.location.replace("index.html");
-    
-}, 10000);
-
-// information du formulaire
 
 //Suppression panier
-const deleteCart = localStorage.clear('produit');
-console.log(JSON.parse(localStorage.getItem('produit')));
+localStorage.removeItem('produit');
+
 
 
 
