@@ -1,5 +1,5 @@
 
-// Recupération id dans l'url
+// Recupération de l'id dans l'url
 function getKanapId() {
     const urlKanap = document.location.href; 
     const urlProduct = new URL(urlKanap);
@@ -11,7 +11,7 @@ function getKanapId() {
 
 
 
-//Récupération des infos produits
+//Récupération des information des produits depuis l'APi
 fetch(`http://localhost:3000/api/products/${getKanapId()}`)
 .then(function (res) {
     if (res.ok) {
@@ -28,7 +28,7 @@ fetch(`http://localhost:3000/api/products/${getKanapId()}`)
 });
 
 
-//fonction gestion affichage infos produit
+//Fonction de gestion de l' affichage des informations liées au produit
 function displayKanap (product){
 
     //  Image
@@ -59,26 +59,25 @@ function displayKanap (product){
     // console.log(kanapPrice);
     kanapPrice.innerText= product.price;
 
-    // Quantité
-    // let kanapQuantityChoose = document.getElementById('quantity');
-    // console.log(kanapQuantityChoose);
+
 }
 
-// LocalStorage
-    //Je veux envoyer les choix du client en LS au clic
+
+// Gestion du LocalStorage (LS) et gestion des informations liés à l'ajout des produits
+            
 
         //récupération bouton html
         const addToCartButton = document.getElementById('addToCart');
         console.log(addToCartButton);
         
-        //Création Event au clic
+        //Création de l'Event au clic
         addToCartButton.addEventListener('click', (event) => {
             
-            // couleur
+            // récupératin de la couleur
             const productOptions = document.getElementById('colors').value;
             // console.log(productOptions);
 
-            //quantité
+            //récupératin de la quantité
             const productQuantity = parseInt(document.getElementById('quantity').value);
             // console.log(productQuantity);
             
@@ -88,10 +87,12 @@ function displayKanap (product){
                alert('Veuillez vérifier les informations renseignées.');
                 return;
             } 
-            
-            // Id
-            const id = getKanapId();
 
+
+            
+            
+            //Si LS existant =>Récupération des données et gestion.
+            const id = getKanapId();
             let userDataStorage = localStorage.getItem('produit');
                
 
@@ -134,7 +135,7 @@ function displayKanap (product){
 
                     
 
-                
+                //Si LS vide => création de celui-ci
                 } else {
                     
                     let userDataChoose =[{

@@ -4,14 +4,11 @@ fetch("http://localhost:3000/api/products")
         return res.json();
       }
     })
+    
+    // Récupération de l'élèment HTML grâce à son id
     .then(function (products){
-      for ( let product of products) {
-            
-            
-          // Récupérer l'élèment HTML grâce à son id
+      for ( let product of products) {        
           
-          // Insérer un produit en reprenant le template en commentaire de la page index.html avec string Interpolation
-        
           let sectionItems = document.getElementById('items');
           console.log(sectionItems);
         
@@ -28,7 +25,7 @@ fetch("http://localhost:3000/api/products")
            
             
     })
-    
+    // Gestion des erreurs liées aux interrractions avec le serveur
     .catch(function (error) {
         // Une erreur est survenue
         console.log(error)

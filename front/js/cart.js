@@ -1,8 +1,9 @@
+// Récupération du LocalStorage
 let cart = JSON.parse(localStorage.getItem('produit'));
 // console.log(cart);
 
 
-
+// Récupération des informations en vu de l'affichage du prix tolal et de la quantité finale des articles
 document.getElementById("totalQuantity").innerText = 0;
 document.getElementById('totalPrice').innerText = 0;
 let i = 0;
@@ -13,13 +14,14 @@ cart.forEach((product, index) => {
   let color = product.colors;
   let quantity = product.quantity;
 
+  // Récupération de l'ID du produit dans l'APi.
   fetch(`http://localhost:3000/api/products/${product._id}`)
     .then(function (response) {
       if (response) {
         return response.json();
       }
     })
-
+    // Fonction chargée de placer les informations du produits en variable et les placés dans le code html par string concaténation 
     .then(function (product) {
       // console.log(product._id);
 
@@ -64,7 +66,9 @@ cart.forEach((product, index) => {
       const sumProductPrice = document.getElementById("totalPrice");
       sumProductPrice.innerText = parseInt(sumProductPrice.textContent) + price * quantity;
 
+      // Supression
       eventDeleteItem();
+      //Modification quantité
       eventUpdateItem();
 
 
@@ -81,7 +85,7 @@ cart.forEach((product, index) => {
   // console.log(displayCart);
 
 });
-
+//Controle formulaire
 validUserData();
 
 let orderButton = document.getElementById('order');
@@ -90,6 +94,8 @@ orderButton.addEventListener('click', (e) => {
   dataPost();
 });
 
+
+// fonction gestionnaire de la suppression d'article dans le panier
 function eventDeleteItem() {
 
   //supprimer
@@ -130,7 +136,7 @@ function eventDeleteItem() {
     
   };
 };
-
+// fonction gestionnaire de la modification des quantités d'article dans le panier
 function eventUpdateItem() {
 
   const itemQuantityList = document.getElementsByClassName('itemQuantity');
@@ -174,9 +180,7 @@ function eventUpdateItem() {
 
 };
 
-// Formulaire
-
-
+// Controle des information entrées dans le formulaire
 function validUserData() {
 
   const form = document.querySelector('.cart__order__form');
@@ -195,7 +199,7 @@ function validUserData() {
 
 }
 
-
+// Fonction des gestions des expressions régulère ( RegExp)
 function validText() {
 
   let letterAndSymbols = /^[a-zA-ZÀ-ÄÈ-ÏÑ-ÖÙ-Ýà-äè-öù-ÿ'-\s]+$/;
@@ -204,6 +208,7 @@ function validText() {
   
 
   //Controle Prénom
+
   const firstNameContent = document.getElementById('firstName');
   // console.log(firstNameContent);
   const errorFName = document.getElementById('firstNameErrorMsg');
@@ -218,6 +223,7 @@ function validText() {
   };
 
   // Controle nom de famille
+
   const lastNameContent = document.getElementById('lastName');
   // console.log(lastsNameContent);
   const errorLName = document.getElementById('lastNameErrorMsg');
@@ -234,6 +240,7 @@ function validText() {
 
 
   //Controle du nom de la ville
+
   const cityContent = document.getElementById('city');
   const errorCity = document.getElementById('cityErrorMsg');
 
@@ -248,7 +255,7 @@ function validText() {
   };
 
 }
-
+// Adresse
 function validAddress() {
 
   const address = document.getElementById('address');
@@ -269,7 +276,7 @@ function validAddress() {
 
 };
 
-
+// Email
 function validEmail() {
   const email = document.getElementById('email');
   const error = document.getElementById('emailErrorMsg');
@@ -287,27 +294,30 @@ function validEmail() {
   };
 };
 
+// Fonction gestionnaire de l'envoie du panier et du formulaire au serveur
 function dataPost() {
-  //Vérification de l'email
+
+  //Vérification  de la présence d'information valide dans le formulaire
   if (!(validText() && validAddress() && validEmail())) {
     alert('Erreur d\'envoi au serveur')
     return;
   }
 
 
-
+  // Récupération des données du ormulaire
   let fName = document.getElementById('firstName').value;
   let lName = document.getElementById('lastName').value;
   let address = document.getElementById('address').value;
   let cityName = document.getElementById('city').value;
   let email = document.getElementById('email').value;
 
-  // un tableau de l'id des produit en format de string
-
   let productsArray = [];
-  //Récupérér LocalStorage
+
+  //Récupérération LocalStorage
   let productInCart = JSON.parse(localStorage.getItem('produit'));
   // console.log(productInCart);
+
+  //Envoie au serveur
 
   for (let product of productInCart) {
 
