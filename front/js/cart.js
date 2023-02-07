@@ -57,9 +57,11 @@ cart.forEach((product, index) => {
 
       let cartHtmlCode = document.getElementById('cart__items');
       cartHtmlCode.innerHTML += displayCart;
-
-
       // console.log(displayCart);
+
+
+      // Sommes des quantités et des tarifs - totaux
+    
       const productSum = document.getElementById("totalQuantity");
       productSum.innerText = parseInt(productSum.textContent) + quantity;
 
@@ -136,6 +138,7 @@ function eventDeleteItem() {
     
   };
 };
+
 // fonction gestionnaire de la modification des quantités d'article dans le panier
 function eventUpdateItem() {
 
